@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}base{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'Filephile:index' %}">Filephile</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          {% if request.session.is_login %}
+            <a class="nav-item nav-link" href="#">hello, {{ request.session.user_name }}</a>
+            <a class="nav-item nav-link" href="{% url 'Filephile:logout' %}">Logout</a>
+          {% else %}
+            <a class="nav-item nav-link" href="{% url 'Filephile:register' %}">Register</a>
+            <a class="nav-item nav-link" href="{% url 'Filephile:login' %}">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

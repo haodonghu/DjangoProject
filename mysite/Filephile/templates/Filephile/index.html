@@ -1,0 +1,11 @@
+{#Filephile/templates/Filephile/index.html#}
+
+{% extends 'Filephile/base.html' %}
+{% block title %}Main Page{% endblock %}
+{% block content %}
+  {% if request.session.is_login %}
+    <h1>Welcome to Filephile</h1>
+  {% else %}
+    <h1>You are not logged in.<br>You can only access the public information.</h1>
+  {% endif %}
+{% endblock %}
