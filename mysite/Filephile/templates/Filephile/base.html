@@ -22,8 +22,10 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% if request.session.is_login %}
-            <a class="nav-item nav-link" href="#">hello, {{ request.session.user_name }}</a>
+            <a class="nav-item nav-link" href="">hello, {{ request.session.user_name }}</a>
             <a class="nav-item nav-link" href="{% url 'Filephile:logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'Filephile:dashboard' %}">Dashboard</a>
+            <a class="nav-item nav-link" href="{% url 'Filephile:setting' request.session.user_id %}">Setting</a>
           {% else %}
             <a class="nav-item nav-link" href="{% url 'Filephile:register' %}">Register</a>
             <a class="nav-item nav-link" href="{% url 'Filephile:login' %}">Login</a>

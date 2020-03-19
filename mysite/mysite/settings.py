@@ -25,7 +25,8 @@ SECRET_KEY = '5454vm(v0&0t2+=ge9s64*2+%#4st3n^*c7pnk=dc1!a=y35ri'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["47.91.72.17"]
+# ALLOWED_HOSTS = ["47.91.72.17"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -123,3 +124,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "Filephile/static"),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "")

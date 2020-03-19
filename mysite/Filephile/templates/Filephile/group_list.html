@@ -1,0 +1,21 @@
+{% extends 'Filephile/base.html' %}
+
+{% block title %}Upload{% endblock %}
+
+{% block css %}
+  <!-- css linkage -->
+{% endblock %}
+
+{% block content %}
+  <form action="{% url 'Filephile:add_or_quit' file.id %}" method="post">
+    {% csrf_token %}
+    {% for group in groups_all %}
+      {% if group in groups_in %}
+        <input type="checkbox" name="group" value="{{ group.id }}" checked>{{ group.name }}<br>
+      {% else %}
+        <input type="checkbox" name="group" value="{{ group.id }}">{{ group.name }}<br>
+      {% endif %}
+    {% endfor %}
+    <button type="submit">submit</button>
+  </form>
+{% endblock %}

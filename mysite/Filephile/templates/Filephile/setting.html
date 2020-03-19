@@ -1,0 +1,23 @@
+{% extends 'Filephile/base.html' %}
+
+{% block title %}Upload{% endblock %}
+
+{% block css %}
+  <!-- css linkage -->
+{% endblock %}
+
+{% block content %}
+  <h2>{{ targeted_user.name }}'s personal page</h2>
+
+  <br>
+  {% ifequal targeted_user user%}
+    <a href="{% url 'Filephile:change_name' %}">change_name</a>
+
+    <br>
+
+    <a href="{% url 'Filephile:change_password' %}">change_password</a>
+
+
+  {% endifequal %}
+
+{% endblock %}

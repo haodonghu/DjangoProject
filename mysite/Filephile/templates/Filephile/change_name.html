@@ -1,0 +1,18 @@
+{% extends 'Filephile/base.html' %}
+
+{% block title %}Upload{% endblock %}
+
+{% block css %}
+  <!-- css linkage -->
+{% endblock %}
+
+{% block content %}
+  <form action="{% url 'Filephile:change_name' %}" method="post">
+    {% csrf_token %}
+
+    {{ change_name_form.change.label_tag }}
+    {{ change_name_form.change }}
+
+    <button type="submit">change</button>
+  </form>
+{% endblock %}
