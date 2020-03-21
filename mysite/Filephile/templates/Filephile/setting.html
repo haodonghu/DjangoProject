@@ -1,9 +1,9 @@
 {% extends 'Filephile/base.html' %}
-
+{% load static %}
 {% block title %}Upload{% endblock %}
 
 {% block css %}
-  <!-- css linkage -->
+  <link rel="stylesheet" href="{% static 'CSS/setting.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -11,13 +11,10 @@
 
   <br>
   {% ifequal targeted_user user%}
-    <a href="{% url 'Filephile:change_name' %}">change_name</a>
-
-    <br>
-
-    <a href="{% url 'Filephile:change_password' %}">change_password</a>
-
-
+    <div class="changes">
+      <a href="{% url 'Filephile:change_name' %}"><button class="btn btn-primary pull-left">change_name</button></a>
+      <a href="{% url 'Filephile:change_password' %}"><button class="btn btn-primary pull-right">change_password</button></a>
+    </div>
   {% endifequal %}
 
 {% endblock %}

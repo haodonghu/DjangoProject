@@ -16,17 +16,17 @@ class RegisterForm(forms.Form):
 
 
 class UploadFileForm(forms.Form):
-    filename = forms.CharField(label="filename", max_length=50)
-    filedata = forms.FileField(label="filedata")
+    filename = forms.CharField(label="filename", max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    filedata = forms.FileField(label="filedata", widget=forms.FileInput(attrs={'class': 'form-control'}))
 
 
 class CreateGroupForm(forms.Form):
-    groupname = forms.CharField(label="groupname", max_length=50)
+    groupname = forms.CharField(label="groupname", max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     permission_key = forms.CharField(label="permission_key", max_length=50, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 class SearchGroupForm(forms.Form):
-    groupname = forms.CharField(label="groupname", max_length=50)
+    groupname = forms.CharField(label="groupname", max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 
 class JoinGroupForm(forms.Form):

@@ -1,0 +1,62 @@
+body {
+  background-color: #eee;
+}
+/* 创建两个相等的列 */
+.column1 {
+  float: left;
+  width: 70%;
+}
+
+.column2 {
+  float: right;
+  width: 30%;
+}
+
+/* 列后清除浮动 */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* 响应式布局 - 小于 600 px 时改为上下布局 */
+@media screen and (max-width: 600px) {
+  .column1 {
+    width: 100%;
+  }
+  .column2 {
+    width: 100%;
+  }
+}
+
+.col-md-4 {
+  margin: auto;
+  padding: 10px 0;
+}
+.form-dashboard {
+  max-width: 330px;
+  padding: 0px;
+  margin: 0 auto;
+}
+.form-dashboard .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-dashboard .form-control:focus {
+  z-index: 2;
+}
+.form-dashboard input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-dashboard input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

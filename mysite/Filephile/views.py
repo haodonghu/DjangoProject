@@ -184,7 +184,6 @@ def create_group(request):
         return redirect('/dashboard/')
     elif request.method == "POST":
         create_group_form = CreateGroupForm(request.POST)
-        message = "please check this name and enter again."
         if create_group_form.is_valid():
             group_name = create_group_form.cleaned_data['groupname']
             permission_key = create_group_form.cleaned_data['permission_key']
@@ -220,9 +219,6 @@ def delete(request, id):
     return redirect('/dashboard/')
 
 def upload(request):
-    # When you click the "submit button", a form will be passed into this function.
-    # Then, we add it to the database.
-    # Finally, we redirct to dashboard by "render()" or "redirct()".
     if not request.session.get('is_login',None):
         return redirect('/')
 

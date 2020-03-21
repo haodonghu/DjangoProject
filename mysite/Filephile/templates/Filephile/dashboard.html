@@ -1,117 +1,161 @@
 {% extends 'Filephile/base.html' %}
-
-{% block title %}Upload{% endblock %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
 
 {% block css %}
-  <!-- css linkage -->
+  <link rel="stylesheet" href="{% static 'CSS/dashboard.css' %}">
 {% endblock %}
 
 {% block content %}
-
-  <!-- show files -->
-  <h1>This is dashboard</h1>
-
-  <br><br>
-
   <!-- show groups -->
-  <table border="1">
-    <tr>
-      <th>Groups</th>
-      <th>Date_Created</th>
-      <th>Operations</th>
-    </tr>
-    {% for group in groups reversed %}
-      <tr>
-        <td>{{ group.name }}</td>
-        <td>{{ group.Date_Created }}</td>
-        <td>
-          <a href="{% url 'Filephile:group_info' group.id %}">show_info</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+  <div class="row">
+    <div class="column1">
+      <div class="card bg-light" style="margin:5% 5%">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Groups</th>
+                  <th>Date_Created</th>
+                  <th>Operations</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for group in groups reversed %}
+                  <tr>
+                    <td>{{ group.name }}</td>
+                    <td>{{ group.Date_Created }}</td>
+                    <td>
+                      <a href="{% url 'Filephile:group_info' group.id %}">show_info</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-  <br>
-  <!-- create group -->
-  {% if message %}
-      {{ message }}
-  {% endif %}
+      <div class="card bg-light" style="margin:5% 5%">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Date Added</th>
+                  <th>Operations</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for file in files reversed %}
+                  <tr>
+                    <td>{{ file.name }}</td>
+                    <td>{{ file.owner.name }}</td>
+                    {% if file.private %}
+                      <td>private</td>
+                    {% else %}
+                      <td>public</td>
+                    {% endif %}
+                    <td>{{ file.Date_Added }}</td>
+                    <td>
+                      <a href="{% url 'Filephile:delete' file.id %}">delete</a>
+                      <a href="{% url 'Filephile:download' file.data.url %}">download</a>
+                      <a href="{% url 'Filephile:groups' file.id %}">groups</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h3>create group</h3>
-  <form action="{% url 'Filephile:create_group' %}" method="post">
-    {% csrf_token %}
+    <div class="column2">
+      <div class="card bg-light" style="margin:5% 5%">
+        <div class="card-header">
+          <h3>create group</h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="col-md-4">
+              <form class='form-dashboard' action="{% url 'Filephile:create_group' %}" method="post">
+                {% csrf_token %}
 
-    {{ create_group_form.groupname.label_tag }}
-    {{ create_group_form.groupname}}
+                <div class="form-group">
+                  {{ create_group_form.groupname.label_tag }}
+                  {{ create_group_form.groupname}}
+                </div>
 
-    <br>
-    {{ create_group_form.permission_key.label_tag }}
-    {{ create_group_form.permission_key}}
+                <div class="form-group">
+                  {{ create_group_form.permission_key.label_tag }}
+                  {{ create_group_form.permission_key}}
+                </div>
 
-    <button type="reset">reset</button>
-    <button type="submit">submit</button>
-  </form>
+                <button type="reset" class="btn btn-default pull-left">reset</button>
+                <button type="submit" class="btn btn-primary pull-left">submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <br>
-  <!-- search group -->
-  <h3>search group</h3>
-  <form action="{% url 'Filephile:search_group' %}" method="post">
-    {% csrf_token %}
+      <div class="card bg-light" style="margin:5% 5%">
+        <div class="card-header">
+          <h3>search group</h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="col-md-4">
+              <form class='form-dashboard' action="{% url 'Filephile:search_group' %}" method="post">
+                {% csrf_token %}
 
-    {{ search_group_form.groupname.label_tag }}
-    {{ search_group_form.groupname }}
+                <div class="form-group">
+                  {{ search_group_form.groupname.label_tag }}
+                  {{ search_group_form.groupname }}
+                </div>
 
-    <button type="reset">reset</button>
-    <button type="submit">submit</button>
-  </form>
+                <button type="reset" class="btn btn-default pull-left">reset</button>
+                <button type="submit" class="btn btn-primary pull-left">submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <br><br>
+      <div class="card bg-light" style="margin:5% 5%">
+        <div class="card-header">
+          <h3>upload file</h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="col-md-4">
+              <form class='form-dashboard' action="{% url 'Filephile:upload' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
 
-  <!-- show files -->
-  <table border="1">
-    <tr>
-      <th>Name</th>
-      <th>Owner</th>
-      <th>Status</th>
-      <th>Date Added</th>
-      <th>Operations</th>
-    </tr>
-    {% for file in files reversed %}
-      <tr>
-        <td>{{ file.name }}</td>
-        <td>{{ file.owner.name }}</td>
-        {% if file.private %}
-          <td>private</td>
-        {% else %}
-          <td>public</td>
-        {% endif %}
-        <td>{{ file.Date_Added }}</td>
-        <td>
-          <a href="{% url 'Filephile:delete' file.id %}">delete</a>
-          <a href="{% url 'Filephile:download' file.data.url %}">download</a>
-          <a href="{% url 'Filephile:groups' file.id %}">groups</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+                <div class="form-group">
+                  {{ upload_form.filename.label_tag }}
+                  {{ upload_form.filename}}
+                </div>
 
-  <br><br>
-  <!-- upload file -->
-  <form action="{% url 'Filephile:upload' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+                <div class="form-group">
+                  {{ upload_form.filedata.label_tag }}
+                  {{ upload_form.filedata}}
+                </div>
 
-    {{ upload_form.filename.label_tag }}
-    {{ upload_form.filename}}
+                <button type="reset" class="btn btn-default pull-left">reset</button>
+                <button type="submit" class="btn btn-primary pull-left">submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <br>
-
-    {{ upload_form.filedata.label_tag }}
-    {{ upload_form.filedata}}
-
-    <br>
-
-    <button type="reset">reset</button>
-    <button type="submit">submit</button>
-  </form>
+    </div>
+  </div>
 
 {% endblock %}

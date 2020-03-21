@@ -1,0 +1,7 @@
+h1.capitalize {
+  text-align:center;
+  margin-top: 200px;
+  color:rgb(80,80,80);
+  text-transform:capitalize;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+}

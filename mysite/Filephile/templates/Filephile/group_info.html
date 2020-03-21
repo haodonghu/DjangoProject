@@ -1,76 +1,95 @@
 {% extends 'Filephile/base.html' %}
-
+{% load static %}
 {% block title %}Upload{% endblock %}
 
 {% block css %}
-  <!-- css linkage -->
+  <link rel="stylesheet" href="{% static 'CSS/group_info.css' %}">
 {% endblock %}
 
 {% block content %}
-  <h1>{{ group.name }}</h1>
-  <h3>user number: {{ user_number }}</h3>
-  <h3>file number: {{ file_number }}</h3>
-  <h3>manager: {{ manager.name.name }}</h3>
-  {% if user in users %}
-    <br><br>
-    <table border="1">
-      <tr>
-        <th>Member</th>
-        <th>Operations</th>
-      </tr>
-      {% for user in users %}
-        <tr>
-          <td>{{ user.name }}</td>
-        </tr>
-      {% endfor %}
-    </table>
+<div class="card bg-light" style="margin:5% 15%">
+  <div class="card-header">
+    <h1>{{ group.name }}</h1>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <h3>user number: {{ user_number }}</h3>
+      <h3>file number: {{ file_number }}</h3>
+      <h3>manager: {{ manager.name.name }}</h3>
+      {% if user in users %}
+        <br><br>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+                <tr>
+                  <td>{{ user.name }}</td>
+                  <td><a href="{% url 'Filephile:setting' user.id %}">Personal page</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
 
-    <br><br>
+        <br><br>
 
-    <table border="1">
-      <tr>
-        <th>Name</th>
-        <th>Owner</th>
-        <th>Status</th>
-        <th>Date Added</th>
-        <th>Operations</th>
-      </tr>
-      {% for file in files reversed %}
-        <tr>
-          <td>{{ file.name }}</td>
-          <td>{{ file.owner.name }}</td>
-          {% if file.private %}
-            <td>private</td>
-          {% else %}
-            <td>public</td>
-          {% endif %}
-          <td>{{ file.Date_Added }}</td>
-          <td>
-            <a href="{% url 'Filephile:download' file.data.url %}">download</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Status</th>
+                <th>Date Added</th>
+                <th>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for file in files reversed %}
+                <tr>
+                  <td>{{ file.name }}</td>
+                  <td>{{ file.owner.name }}</td>
+                  {% if file.private %}
+                    <td>private</td>
+                  {% else %}
+                    <td>public</td>
+                  {% endif %}
+                  <td>{{ file.Date_Added }}</td>
+                  <td>
+                    <a href="{% url 'Filephile:download' file.data.url %}">download</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'Filephile:dashboard' %}"><button class="btn btn-primary pull-left">back</button></a>
 
-    <br><br>
+        {% ifequal user.name manager.name.name %}
+          <a href="{% url 'Filephile:dismiss' group.id %}"><button class="btn btn-default pull-left">dismiss</button></a>
+        {% else %}
+          <a href="{% url 'Filephile:quit' group.id %}"><button class="btn btn-default pull-left">quit</button></a>
+        {% endifequal %}
 
-    {% ifequal user.name manager.name.name %}
-      <a href="{% url 'Filephile:dismiss' group.id %}">dismiss</a>
-    {% else %}
-      <a href="{% url 'Filephile:quit' group.id %}">quit</a>
-    {% endifequal %}
+      {% else %}
+        <form action="{% url 'Filephile:join' group.id %}" method="post">
+          {% csrf_token %}
 
-  {% else %}
-    <form action="{% url 'Filephile:join' group.id %}" method="post">
-      {% csrf_token %}
+          {{ join_group_form.permission_key.label_tag }}
+          {{ join_group_form.permission_key }}
 
-      {{ join_group_form.permission_key.label_tag }}
-      {{ join_group_form.permission_key }}
-
-      <button type="submit">join</button>
-    </form>
-  {% endif %}
-
-  <br>
-  <a href="{% url 'Filephile:dashboard' %}">back</a>
+          <button type="submit" class="btn btn-default pull-left">join</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}
