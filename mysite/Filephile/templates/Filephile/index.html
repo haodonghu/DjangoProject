@@ -6,8 +6,66 @@
 {% endblock %}
 {% block content %}
   <h1 class="capitalize">FILEPHILE IS HERE</h1>
-  <img src="{% static 'Img/analyze.png' %}" alt="My image" width="80" height="80">
-  <img src="{% static 'Img/db.png' %}" alt="My image" width="80" height="80">
-  <img src="{% static 'Img/group.png' %}" alt="My image" width="80" height="80">
-  <img src="{% static 'Img/share.png' %}" alt="My image" width="80" height="80">
+
+  <div class="quote">
+    <p class="flush-left">“Power comes not from knowledge kept but from knowledge shared.”</p><br>
+    <p class="flush-right">—— Bill Gates<p/>
+  </div>
+
+  <div class="turn">
+    <a href="#describe">
+      <img src="{% static 'Img/arrow.png' %}" alt="My image" width="48" height="48">
+    </a>
+  </div>
+
+  <div id ="describe" class="describe">
+    <p>Filephile enables real-time and bidirectional file-sharing. It works on every platform, browser or device, focusing equally on reliability and speed.</p>
+  </div>
+
+  <div class="details">
+    <div class="block">
+      <div class="img">
+        <img src="{% static 'Img/analyze.png' %}" alt="My image" width="80" height="80">
+      </div>
+      <div class="text">
+        <h2>Real-time analytics</h2>
+        <p>Superviser & Recommander System based on machine learning.</p>
+      </div>
+    </div>
+    <div class="block">
+      <div class="img">
+        <img src="{% static 'Img/db.png' %}" alt="My image" width="80" height="80">
+      </div>
+      <div class="text">
+        <h2>Binary streaming</h2>
+        <p>It's possible to send any blob back and forth: image, audio, video.</p>
+      </div>
+    </div>
+    <div class="block">
+      <div class="img">
+        <img src="{% static 'Img/group.png' %}" alt="My image" width="80" height="80">
+      </div>
+      <div class="text">
+        <h2>Group organizing</h2>
+        <p>Users can create groups and join other people's groups.</p>
+      </div>
+    </div>
+    <div class="block">
+      <div class="img">
+        <img src="{% static 'Img/share.png' %}" alt="My image" width="80" height="80">
+      </div>
+      <div class="text">
+        <h2>Sharing mechanism</h2>
+        <p>Our sharing mechanism allows everyone to share files to friends.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="describe">
+    <p>In the near future, Filephile will be able to convert handwritten notes into text docments with OCR tech. Also, there will be a chat room for each group so that everyone can communicate with others. What's more, machine learning tech will help us with supervising file content so that illegal file will not be sharing on Filephile. More importantly, Fielphile can recommand relative friends and groups whose file is probably in your intereting area.</p>
+  </div>
+
+  <div class="contribute">
+    <p>Contribute code or report issues on <a href="https://github.com/haodonghu/DjangoProject.git">GitHub<a/>.</p>
+  </div>
 {% endblock %}
